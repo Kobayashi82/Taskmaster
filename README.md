@@ -10,7 +10,7 @@
 </div>
 
 <div align="center">
-  <img src="/doc/Taskmaster.png">
+  <img src="/Taskmaster.png">
 </div>
 
 # Taskmaster

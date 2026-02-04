@@ -5,7 +5,7 @@
 ![Daemon Proceds](https://img.shields.io/badge/Daemon-Process-green?style=for-the-badge)
 ![C++ Language](https://img.shields.io/badge/Language-C++-red?style=for-the-badge)
 
-*Un daemon de control de trabajos con características similares a supervisor*
+*A job-control daemon with supervisor-like features*
 
 </div>
 
@@ -15,255 +15,257 @@
 
 # Taskmaster
 
-## 🎯 Descripción
+[README en Español](README_es.md)
 
-`Taskmaster` es un proyecto de `42 School` que implementa un daemon completo de control de trabajos con funcionalidades similares a supervisor. Este sistema permite gestionar procesos en segundo plano, mantenerlos vivos, reiniciarlos automáticamente cuando sea necesario y proporcionar un control total sobre su ciclo de vida. El proyecto incluye tanto el daemon principal como un cliente de control con shell interactivo avanzado.
+## 🎯 Description
 
-## ✨ Características
+`Taskmaster` is a `42 School` project that implements a complete job-control daemon with supervisor-like functionality. This system allows you to manage background processes, keep them alive, restart them automatically when needed, and provide full control over their lifecycle. The project includes both the main daemon and a control client with an advanced interactive shell.
 
-### Daemon Principal (taskmasterd)
-- **Daemon Real**: Proceso que se ejecuta en segundo plano de forma independiente
-- **Control de Procesos**: Supervisión completa del ciclo de vida de procesos
-- **Configuración Dinámica**: Recarga de configuración sin parar el daemon (SIGHUP)
-- **Sistema de Logging**: Gestión avanzada con rotación automática y soporte syslog
-- **Privilege De-escalation**: Capacidad de ejecutarse como usuario específico
-- **Múltiples Protocolos**: Conexión vía UNIX sockets e INET sockets
-- **Variables Avanzadas**: Soporte para expansión de variables en configuración
-- **Gestión de Recursos**: Control de descriptores de archivos y procesos mínimos
+## ✨ Features
 
-### Cliente de Control (taskmasterctl)
-- **Shell Interactivo Avanzado**: Con readline personalizado y soporte de modo `vi`
-- **Historial Completo**: Con búsqueda y expansión de historial
-- **Autocompletado**: Sistema inteligente de completado
-- **Attach/Detach**: Conexión y desconexión a procesos supervisados en tiempo real
-- **Control Remoto**: Gestión del daemon desde cliente remoto
+### Main Daemon (taskmasterd)
+- **Real Daemon**: Process that runs independently in the background
+- **Process Control**: Full supervision of process lifecycles
+- **Dynamic Configuration**: Reload configuration without stopping the daemon (SIGHUP)
+- **Logging System**: Advanced management with automatic rotation and syslog support
+- **Privilege De-escalation**: Ability to run as a specific user
+- **Multiple Protocols**: Connection via UNIX sockets and INET sockets
+- **Advanced Variables**: Support for variable expansion in configuration
+- **Resource Management**: Control of file descriptors and minimum processes
 
-### Parser de Configuración
-- **Sintaxis Supervisor**: Compatible con formato supervisor estándar
-- **Parser Propio**: Implementación personalizada para máximo control
-- **Variables Dinámicas**: Soporte completo para variables del sistema y personalizadas
-- **Modificadores de Variables**: Sintaxis avanzada para manipulación de strings y números
+### Control Client (taskmasterctl)
+- **Advanced Interactive Shell**: Custom readline with `vi` mode support
+- **Full History**: History search and expansion
+- **Autocomplete**: Intelligent completion system
+- **Attach/Detach**: Connect and disconnect to supervised processes in real time
+- **Remote Control**: Manage the daemon from a remote client
 
-## 🔧 Instalación
+### Configuration Parser
+- **Supervisor Syntax**: Compatible with the standard supervisor format
+- **Custom Parser**: In-house implementation for maximum control
+- **Dynamic Variables**: Full support for system and custom variables
+- **Variable Modifiers**: Advanced syntax for string and number manipulation
+
+## 🔧 Installation
 
 ```bash
 git clone https://github.com/Kobayashi82/taskmaster.git
 cd taskmaster
 make
 
-# Ejecutables generados en la carpeta bin/:
-# taskmasterd     - El daemon principal
-# taskmasterctl   - Cliente de control interactivo
+# Binaries generated in the bin/ folder:
+# taskmasterd     - Main daemon
+# taskmasterctl   - Interactive control client
 ```
 
-## 🖥️ Uso del Daemon (taskmasterd)
+## 🖥️ Daemon Usage (taskmasterd)
 
-### Opciones Disponibles
+### Available Options
 
 ```bash
 Usage: taskmasterd: [ OPTION... ]
 ```
 
-#### Configuración y Ejecución:
-- `-c, --configuration=FILENAME`: Archivo de configuración
-- `-n, --nodaemon`: Ejecutar en primer plano (no como daemon)
-- `-s, --silent`: No mostrar logs en stdout (solo cuando no se ejecuta como daemon)
-- `-d, --directory=DIRECTORY`: Directorio de trabajo del daemon
-- `-k, --nocleanup`: Prevenir limpieza automática al iniciar
+#### Configuration and Execution:
+- `-c, --configuration=FILENAME`: Configuration file
+- `-n, --nodaemon`: Run in foreground (not as daemon)
+- `-s, --silent`: Do not show logs on stdout (only when not running as daemon)
+- `-d, --directory=DIRECTORY`: Daemon working directory
+- `-k, --nocleanup`: Prevent automatic cleanup on start
 
-#### Control de Usuario y Permisos:
-- `-u, --user=USER`: Ejecutar como usuario específico (o UID numérico)
-- `-m, --umask=UMASK`: Máscara umask para subprocesos (por defecto: 022)
+#### User and Permissions Control:
+- `-u, --user=USER`: Run as a specific user (or numeric UID)
+- `-m, --umask=UMASK`: Umask for child processes (default: 022)
 
-#### Sistema de Logging:
-- `-l, --logfile=FILENAME`: Archivo de log principal
-- `-y, --logfile_maxbytes=BYTES`: Tamaño máximo del archivo de log
-- `-z, --logfile_backups=NUM`: Número de backups en rotación
-- `-e, --loglevel=LEVEL`: Nivel de log (debug,info,warn,error,critical)
-- `-q, --childlogdir=DIRECTORY`: Directorio para logs de procesos hijo
-- `-t, --strip_ansi`: Eliminar códigos ANSI de la salida de procesos
+#### Logging System:
+- `-l, --logfile=FILENAME`: Main log file
+- `-y, --logfile_maxbytes=BYTES`: Maximum log file size
+- `-z, --logfile_backups=NUM`: Number of log rotation backups
+- `-e, --loglevel=LEVEL`: Log level (debug,info,warn,error,critical)
+- `-q, --childlogdir=DIRECTORY`: Directory for child process logs
+- `-t, --strip_ansi`: Strip ANSI codes from process output
 
-#### Control de Instancia:
-- `-j, --pidfile=FILENAME`: Archivo PID del daemon
-- `-i, --identifier=STR`: Identificador único de esta instancia
+#### Instance Control:
+- `-j, --pidfile=FILENAME`: Daemon PID file
+- `-i, --identifier=STR`: Unique identifier for this instance
 
-#### Requisitos del Sistema:
-- `-a, --minfds=NUM`: Número mínimo de descriptores de archivo para iniciar
-- `-p, --minprocs=NUM`: Número mínimo de procesos disponibles para iniciar
+#### System Requirements:
+- `-a, --minfds=NUM`: Minimum number of file descriptors to start
+- `-p, --minprocs=NUM`: Minimum number of processes available to start
 
-#### Información:
-- `-h, --help`: Mostrar ayuda completa
-- `-v, --version`: Mostrar versión del programa
+#### Information:
+- `-h, --help`: Show full help
+- `-v, --version`: Show program version
 
-### Uso Básico
+### Basic Usage
 
 ```bash
-# Ejecutar con configuración básica
+# Run with basic configuration
 sudo ./taskmasterd -c /etc/taskmaster/taskmaster.conf
 
-# Ejecutar en primer plano (desarrollo/debug)
+# Run in foreground (development/debug)
 ./taskmasterd -c config.conf -n -e debug
 
-# Ejecutar como usuario específico
+# Run as specific user
 sudo ./taskmasterd -c config.conf -u user
 
-# Configuración completa de logging
+# Full logging configuration
 ./taskmasterd -c config.conf -l /var/log/taskmaster/daemon.log -y 10MB -z 5 -e info -q /var/log/taskmaster/children/
 ```
 
-### Gestión del Daemon
+### Daemon Management
 
 ```bash
-# Verificar estado del daemon
+# Check daemon status
 ps aux | grep taskmasterd
 cat /var/run/taskmasterd.pid
 
-# Recargar configuración (sin parar procesos no modificados)
+# Reload configuration (without stopping unchanged processes)
 sudo kill -HUP $(cat /var/run/taskmasterd.pid)
 
-# Parar daemon gracefully
+# Stop daemon gracefully
 sudo kill -TERM $(cat /var/run/taskmasterd.pid)
 
-# Ver logs en tiempo real
+# View logs in real time
 tail -f /var/log/taskmaster/daemon.log
 ```
 
-## 🖥️ Uso del Cliente (taskmasterctl)
+## 🖥️ Client Usage (taskmasterctl)
 
-### Características del Shell Interactivo
+### Interactive Shell Features
 
-- **Readline Personalizado**: Implementación propia
-- **Historial Completo**: Navegación, búsqueda y expansión de historial
-- **Modo Vi**: Edición de líneas con comandos `vi`
-- **Autocompletado**: Completado inteligente de comandos y nombres de programas
-- **Sintaxis Coloreada**: Resaltado visual de comandos
+- **Custom Readline**: In-house implementation
+- **Full History**: Navigation, search, and history expansion
+- **Vi Mode**: Line editing with `vi` commands
+- **Autocomplete**: Intelligent completion for commands and program names
+- **Colored Syntax**: Visual command highlighting
 
-### Comandos Disponibles
+### Available Commands
 
 ```bash
-# Iniciar cliente interactivo
+# Start the interactive client
 ./taskmasterctl
 
-# Comandos dentro del shell:
-taskmaster> status                    # Ver estado de todos los programas
-taskmaster> status nginx              # Ver estado de programa específico
-taskmaster> start nginx               # Iniciar programa
-taskmaster> stop nginx                # Parar programa
-taskmaster> restart nginx             # Reiniciar programa
-taskmaster> reload                    # Recargar configuración del daemon
-taskmaster> shutdown                  # Parar el daemon completamente
-taskmaster> attach nginx:0            # Conectar a proceso específico
-taskmaster> detach                    # Desconectar de proceso actual
-taskmaster> tail nginx stderr         # Ver logs de proceso
-taskmaster> clear nginx               # Limpiar logs de proceso
-taskmaster> help                      # Mostrar ayuda
-taskmaster> quit                      # Salir del cliente
+# Commands inside the shell:
+taskmaster> status                    # Show status of all programs
+taskmaster> status nginx              # Show status of a specific program
+taskmaster> start nginx               # Start program
+taskmaster> stop nginx                # Stop program
+taskmaster> restart nginx             # Restart program
+taskmaster> reload                    # Reload daemon configuration
+taskmaster> shutdown                  # Stop the daemon completely
+taskmaster> attach nginx:0            # Attach to a specific process
+taskmaster> detach                    # Detach from current process
+taskmaster> tail nginx stderr         # View process logs
+taskmaster> clear nginx               # Clear process logs
+taskmaster> help                      # Show help
+taskmaster> quit                      # Exit the client
 ```
 
-### Funciones Avanzadas
+### Advanced Functions
 
 ```bash
-# Attach a proceso específico (modo interactivo)
+# Attach to a specific process (interactive mode)
 taskmaster> attach webapp:2
-# Ahora estás conectado directamente al proceso
-# Ctrl+C para detach y volver al shell de taskmaster
+# You are now connected directly to the process
+# Ctrl+C to detach and return to the taskmaster shell
 
-# Ver logs en tiempo real
+# View logs in real time
 taskmaster> tail -f nginx stdout
 taskmaster> tail -100 webapp stderr
 
-# Gestión granular
-taskmaster> start webapp:*            # Iniciar todos los procesos de webapp
-taskmaster> stop webapp:0 webapp:1    # Parar procesos específicos
-taskmaster> restart all               # Reiniciar todos los programas
+# Granular management
+taskmaster> start webapp:*            # Start all webapp processes
+taskmaster> stop webapp:0 webapp:1    # Stop specific processes
+taskmaster> restart all               # Restart all programs
 ```
 
-## ⚙️ Archivo de Configuración
+## ⚙️ Configuration File
 
-El archivo de configuración utiliza sintaxis similar a supervisor
+The configuration file uses supervisor-like syntax.
 
-### Parámetros de Configuración
+### Configuration Parameters
 
-#### Configuración de Taskmasterd
+#### Taskmasterd Configuration
 
-| Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
-|-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **nodaemon**                | Ejecutar en primer plano      | true/false                       | false                    |
-| **silent**                  | No mostrar logs en stdout     | true/false                       | false                    |
-| **user**                    | Usuario para ejecutar daemon  | string o UID                     | (usuario actual)         |
-| **umask**                   | Máscara de permisos           | octal                            | 022                      |
-| **directory**               | Directorio de trabajo         | path                             | (directorio actual)      |
-| **logfile**                 | Archivo de log del daemon     | path/AUTO/NONE                   | AUTO                     |
-| **logfile_maxbytes**        | Tamaño máximo del log         | bytes (KB/MB)                    | 50MB                     |
-| **logfile_backups**         | Número de backups de log      | int                              | 10                       |
-| **loglevel**                | Nivel de logging              | debug/info/warn/error/critical   | info                     |
-| **pidfile**                 | Archivo PID del daemon        | path/AUTO                        | AUTO                     |
-| **identifier**              | Identificador de instancia    | string                           | taskmaster               |
-| **childlogdir**             | Directorio logs de procesos   | path/AUTO                        | AUTO                     |
-| **strip_ansi**              | Eliminar códigos ANSI         | true/false                       | false                    |
-| **nocleanup**               | No limpiar al iniciar         | true/false                       | false                    |
-| **minfds**                  | Descriptores mínimos          | int                              | 1024                     |
-| **minprocs**                | Procesos mínimos disponibles  | int                              | 200                      |
-| **environment**             | Variables de entorno globales | KEY=Value                        | (vacío)                  |
+| Parameter                   | Description                    | Values                           | Default                  |
+|----------------------------|--------------------------------|----------------------------------|--------------------------|
+| **nodaemon**               | Run in foreground              | true/false                       | false                    |
+| **silent**                 | Do not show logs on stdout     | true/false                       | false                    |
+| **user**                   | User to run daemon             | string or UID                    | (current user)           |
+| **umask**                  | Permission umask               | octal                            | 022                      |
+| **directory**              | Working directory              | path                             | (current directory)      |
+| **logfile**                | Daemon log file                | path/AUTO/NONE                   | AUTO                     |
+| **logfile_maxbytes**       | Max log size                   | bytes (KB/MB)                    | 50MB                     |
+| **logfile_backups**        | Number of log backups          | int                              | 10                       |
+| **loglevel**               | Logging level                  | debug/info/warn/error/critical   | info                     |
+| **pidfile**                | Daemon PID file                | path/AUTO                        | AUTO                     |
+| **identifier**             | Instance identifier            | string                           | taskmaster               |
+| **childlogdir**            | Child process logs directory   | path/AUTO                        | AUTO                     |
+| **strip_ansi**             | Strip ANSI codes               | true/false                       | false                    |
+| **nocleanup**              | Do not clean up on start       | true/false                       | false                    |
+| **minfds**                 | Minimum file descriptors       | int                              | 1024                     |
+| **minprocs**               | Minimum available processes    | int                              | 200                      |
+| **environment**            | Global environment variables   | KEY=Value                        | (empty)                  |
 |
 
-#### Configuración de Programa
+#### Program Configuration
 
-| Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
-|-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **command**                 | Comando a ejecutar            | string                           | (requerido)              |
-| **numprocs**                | Número de procesos a mantener | int                              | 1                        |
-| **process_name**            | Patrón de nombres de proceso  | string                           | $PROGRAM_NAME            |
-| **directory**               | Directorio de trabajo         | path                             | /                        |
-| **umask**                   | Máscara de permisos           | octal                            | 022                      |
-| **user**                    | Usuario para ejecutar         | string                           | (usuario actual)         |
-| **autostart**               | Iniciar automáticamente       | bool                             | true                     |
-| **autorestart**             | Política de reinicio          | true/false/unexpected            | unexpected               |
-| **exitcodes**               | Códigos de salida esperados   | lista                            | 0                        |
-| **startretries**            | Intentos de inicio            | int                              | 3                        |
-| **starttime**               | Tiempo mínimo ejecutándose    | segundos                         | 1                        |
-| **stopsignal**              | Señal para parar gracefully   | TERM/HUP/INT/QUIT/KILL/USR1/USR2 | TERM                     |
-| **stoptime**                | Tiempo antes de SIGKILL       | segundos                         | 10                       |
-| **priority**                | Prioridad de inicio/parada    | int                              | 999                      |
-| **stdout_logfile**          | Archivo de log para stdout    | path/AUTO/NONE                   | AUTO                     |
-| **stderr_logfile**          | Archivo de log para stderr    | path/AUTO/NONE                   | AUTO                     |
-| **stdout_logfile_maxbytes** | Tamaño máximo stdout          | bytes  (KB/MB)                   | 50MB                     |
-| **stderr_logfile_maxbytes** | Tamaño máximo stderr          | bytes  (KB/MB)                   | 50MB                     |
-| **stdout_logfile_backups**  | Backups stdout                | int                              | 10                       |
-| **stderr_logfile_backups**  | Backups stderr                | int                              | 10                       |
-| **environment**             | Variables de entorno globales | KEY=Value                        | (vacío)                  |
+| Parameter                   | Description                    | Values                          | Default                  |
+|----------------------------|--------------------------------|---------------------------------|--------------------------|
+| **command**                | Command to execute             | string                          | (required)               |
+| **numprocs**               | Number of processes to keep    | int                             | 1                        |
+| **process_name**           | Process name pattern           | string                          | $PROGRAM_NAME            |
+| **directory**              | Working directory              | path                            | /                        |
+| **umask**                  | Permission umask               | octal                           | 022                      |
+| **user**                   | User to run                    | string                          | (current user)           |
+| **autostart**              | Start automatically            | bool                            | true                     |
+| **autorestart**            | Restart policy                 | true/false/unexpected           | unexpected               |
+| **exitcodes**              | Expected exit codes            | list                            | 0                        |
+| **startretries**           | Start retries                  | int                             | 3                        |
+| **starttime**              | Minimum run time               | seconds                         | 1                        |
+| **stopsignal**             | Signal to stop gracefully      | TERM/HUP/INT/QUIT/KILL/USR1/USR2 | TERM                     |
+| **stoptime**               | Time before SIGKILL            | seconds                         | 10                       |
+| **priority**               | Start/stop priority            | int                             | 999                      |
+| **stdout_logfile**         | stdout log file                | path/AUTO/NONE                  | AUTO                     |
+| **stderr_logfile**         | stderr log file                | path/AUTO/NONE                  | AUTO                     |
+| **stdout_logfile_maxbytes**| Max stdout size                | bytes  (KB/MB)                  | 50MB                     |
+| **stderr_logfile_maxbytes**| Max stderr size                | bytes  (KB/MB)                  | 50MB                     |
+| **stdout_logfile_backups** | stdout backups                 | int                             | 10                       |
+| **stderr_logfile_backups** | stderr backups                 | int                             | 10                       |
+| **environment**            | Global environment variables   | KEY=Value                       | (empty)                  |
 |
 
-#### Configuración de Grupo
+#### Group Configuration
 
-| Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
-|-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **programs**                | Lista de programas del grupo  | lista                            | (requerido)              |
-| **priority**                | Prioridad de inicio del grupo | int                              | 999                      |
+| Parameter                   | Description                    | Values                          | Default                  |
+|----------------------------|--------------------------------|----------------------------------|--------------------------|
+| **programs**               | Group program list             | list                            | (required)              |
+| **priority**               | Group start priority           | int                             | 999                      |
 |
 
-#### Configuración del servidor UNIX
+#### UNIX Server Configuration
 
-| Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
-|-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **file**                    | Ruta del socket UNIX          | path                             | /var/run/taskmaster.sock |
-| **chmod**                   | Permisos del socket           | octal                            | 0700                     |
-| **chown**                   | Propietario del socket        | user:group                       | root:root                |
+| Parameter                   | Description                    | Values                          | Default                  |
+|----------------------------|--------------------------------|----------------------------------|--------------------------|
+| **file**                   | UNIX socket path               | path                             | /var/run/taskmaster.sock |
+| **chmod**                  | Socket permissions             | octal                            | 0700                     |
+| **chown**                  | Socket owner                   | user:group                       | root:root                |
 |
 
-#### Configuración del servidor INET
+#### INET Server Configuration
 
-| Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
-|-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **port**                    | Host/IP y puerto de escucha   | host:port o *:port               | *:9001                   |
-| **username**                | Usuario para autenticación    | string                           | (sin auth)               |
-| **password**                | Contraseña para autenticación | string                           | (sin auth)               |
+| Parameter                   | Description                    | Values                          | Default                  |
+|----------------------------|--------------------------------|----------------------------------|--------------------------|
+| **port**                   | Host/IP and listening port     | host:port or *:port              | *:9001                   |
+| **username**               | Authentication username        | string                           | (no auth)                |
+| **password**               | Authentication password        | string                           | (no auth)                |
 |
 
-### Ejemplo de archivo de configuración
+### Configuration File Example
 
 ```yaml
-# Configuración global del servidor
+# Global server configuration
 [taskmasterd]
 nodaemon=false
 silent=false
@@ -284,7 +286,7 @@ minfds=512
 minprocs=100
 environment=VAR1=VALUE1, VAR2="VALUE2 with variable \$USER = $USER"
 
-# Definición de programas
+# Program definitions
 [program:date]
 command=date
 process_name=${PROCESS_NAME}_${PROCESS_NUM:*02d}
@@ -333,12 +335,12 @@ environment=STARTED_BY="taskmaster",ANSWER="42",PATH="/usr/bin:${PATH}"
 user=nginx
 priority=999
 
-# Definición de grupos
+# Group definitions
 [group:mygroup]
 programs=date, nginx
 priority=999
 
-# Configuración de conectividad
+# Connectivity configuration
 [unix_http_server]
 file=/var/run/taskmaster.sock
 chmod=0700
@@ -352,90 +354,90 @@ password=secret
 
 ## 🔤 Variables
 
-El sistema de variables de Taskmaster permite una configuración dinámica y flexible mediante expansión de variables con sintaxis avanzada. Soporta valores por defecto, manipulación de cadenas, formateo numérico y variables de configuración
+Taskmaster's variable system enables dynamic and flexible configuration through advanced variable expansion syntax. It supports default values, string manipulation, numeric formatting, and configuration variables.
 
-#### Valores por Defecto
+#### Default Values
 
-| Sintaxis                    | Descripción                                                     | Ejemplo             |
-|-----------------------------|-----------------------------------------------------------------|---------------------|
-| **${VAR:-default}**         | Si `VAR` no está definida o está vacía, devuelve `default`      | ${PORT:-8080}       |
-| **${VAR:+default}**         | Si `VAR` está definida y no está vacía, devuelve `default`      | ${DEBUG:+--verbose} |
+| Syntax                      | Description                                                       | Example             |
+|----------------------------|-------------------------------------------------------------------|---------------------|
+| **${VAR:-default}**        | If `VAR` is unset or empty, returns `default`                     | ${PORT:-8080}       |
+| **${VAR:+default}**        | If `VAR` is set and not empty, returns `default`                  | ${DEBUG:+--verbose} |
 |
 
-#### Manipulación de Cadenas
+#### String Manipulation
 
-| Sintaxis                    | Descripción                                                     | Ejemplo             |
-|-----------------------------|-----------------------------------------------------------------|---------------------|
-| **${VAR:offset}**           | Desde posición `offset` hasta el final                          | ${HOST:2}           |
-| **${VAR:offset:len}**       | Desde posición `offset`, toma `len` caracteres                  | ${HOST:0:3}         |
-| **${VAR: -offset}**         | Desde `offset` caracteres desde el final hasta el final         | ${HOST: -2}         |
-| **${VAR: -offset:len}**     | Desde `offset` caracteres desde el final, toma `len` caracteres | ${HOST: -2:3}       |
-| **${VAR:^}**                | Convertir primera letra a mayúsculas                            | ${USER:^}           |
-| **${VAR:^^}**               | Convertir todo a mayúsculas                                     | ${USER:^^}          |
-| **${VAR:,}**                | Convertir primera letra a minúsculas                            | ${USER:,}           |
-| **${VAR:,,}**               | Convertir todo a minúsculas                                     | ${USER:,,}          |
-| **${VAR:~}**                | Elimina desde el inicio hasta la última / (solo nombre archivo) | ${USER:~~}          |
+| Syntax                      | Description                                                       | Example             |
+|----------------------------|-------------------------------------------------------------------|---------------------|
+| **${VAR:offset}**          | From position `offset` to the end                                 | ${HOST:2}           |
+| **${VAR:offset:len}**      | From position `offset`, take `len` characters                     | ${HOST:0:3}         |
+| **${VAR: -offset}**        | From `offset` characters from the end to the end                  | ${HOST: -2}         |
+| **${VAR: -offset:len}**    | From `offset` characters from the end, take `len` characters      | ${HOST: -2:3}       |
+| **${VAR:^}**               | Uppercase first letter                                            | ${USER:^}           |
+| **${VAR:^^}**              | Uppercase all                                                     | ${USER:^^}          |
+| **${VAR:,}**               | Lowercase first letter                                            | ${USER:,}           |
+| **${VAR:,,}**              | Lowercase all                                                     | ${USER:,,}          |
+| **${VAR:~}**               | Remove from start to last / (file name only)                      | ${USER:~~}          |
 |
 
-#### Formateo Numérico
+#### Numeric Formatting
 
-| Sintaxis                    | Descripción                                                     | Ejemplo             |
-|-----------------------------|-----------------------------------------------------------------|---------------------|
-| **${#VAR}**                 | Longitud de la variable                                         | ${#PROCESS_NUM}     |
-| **${VAR:d}**                | Entero decimal con signo                                        | ${PROCESS_NUM:*d}   |
-| **${VAR:02d}**              | Entero con ceros a la izquierda                                 | ${PROCESS_NUM:*02d} |
-| **${VAR:x}**                | Hexadecimal minúsculas                                          | ${PORT:*x}          |
-| **${VAR:X}**                | Hexadecimal mayúsculas                                          | ${PORT:*X}          |
-| **${VAR:#x}**               | Hexadecimal minúsculas (precedido de 0x)                        | ${PORT:*#x}         |
-| **${VAR:#X}**               | Hexadecimal mayúsculas (precedido de 0X)                        | ${PORT:*#X}         |
-| **${VAR:o}**                | Octal                                                           | ${UMASK:*o}         |    
+| Syntax                      | Description                                                       | Example             |
+|----------------------------|-------------------------------------------------------------------|---------------------|
+| **${#VAR}**                | Variable length                                                   | ${#PROCESS_NUM}     |
+| **${VAR:d}**               | Signed decimal integer                                            | ${PROCESS_NUM:*d}   |
+| **${VAR:02d}**             | Integer with leading zeros                                        | ${PROCESS_NUM:*02d} |
+| **${VAR:x}**               | Lowercase hexadecimal                                             | ${PORT:*x}          |
+| **${VAR:X}**               | Uppercase hexadecimal                                             | ${PORT:*X}          |
+| **${VAR:#x}**              | Lowercase hexadecimal (prefixed with 0x)                          | ${PORT:*#x}         |
+| **${VAR:#X}**              | Uppercase hexadecimal (prefixed with 0X)                          | ${PORT:*#X}         |
+| **${VAR:o}**               | Octal                                                             | ${UMASK:*o}         |    
 |
 
-#### Variables de Taskmaster
+#### Taskmaster Variables
 
-| Sintaxis                    | Descripción                                                                           |
-|-----------------------------|---------------------------------------------------------------------------------------|
-| **TASKMASTER_ENABLED**      | Flag indicando que el proceso está bajo control de Taskmaster                         |
-| **TASKMASTER_PROCESS_NAME** | Nombre del proceso especificado en el archivo de configuración                        |
-| **TASKMASTER_GROUP_NAME**   | Nombre del grupo al que pertenece el proceso                                          |
-| **TASKMASTER_SERVER_URL**   | URL del servidor interno                                                              |
+| Syntax                      | Description                                                                           |
+|----------------------------|---------------------------------------------------------------------------------------|
+| **TASKMASTER_ENABLED**     | Flag indicating the process is under Taskmaster control                               |
+| **TASKMASTER_PROCESS_NAME**| Process name specified in the configuration file                                      |
+| **TASKMASTER_GROUP_NAME**  | Group name the process belongs to                                                     |
+| **TASKMASTER_SERVER_URL**  | Internal server URL                                                                   |
 |
 
-#### Variables de Configuración
+#### Configuration Variables
 
-| Variable                    | Descripción                                                                           |
-|-----------------------------|---------------------------------------------------------------------------------------|
-| **HERE**                    | Directorio del archivo de configuración                                               |
-| **HOST_NAME**               | Nombre del host del sistema                                                           |
-| **GROUP_NAME**              | Nombre del grupo actual                                                               |
-| **PROGRAM_NAME**            | Nombre del programa                                                                   |
-| **NUMPROCS**                | Número total de procesos                                                              |
-| **PROCESS_NUM**             | Número de proceso (0, 1, 2...)                                                        |
+| Variable                   | Description                                                                           |
+|---------------------------|---------------------------------------------------------------------------------------|
+| **HERE**                   | Configuration file directory                                                          |
+| **HOST_NAME**              | System host name                                                                      |
+| **GROUP_NAME**             | Current group name                                                                    |
+| **PROGRAM_NAME**           | Program name                                                                          |
+| **NUMPROCS**               | Total number of processes                                                             |
+| **PROCESS_NUM**            | Process number (0, 1, 2...)                                                           |
 |
 
 ## 🧪 Testing
 
-### Pruebas Básicas del Daemon
+### Basic Daemon Tests
 
 ```bash
-# Test de inicio básico
+# Basic startup test
 ./taskmasterd -c test.conf -n -e debug
 
-# Test de configuración inválida
+# Invalid configuration test
 ./taskmasterd -c invalid.conf -n
 
-# Test de privilege de-escalation
+# Privilege de-escalation test
 sudo ./taskmasterd -c test.conf -u nobody -n
 
-# Test de archivos de lock
+# Lock file test
 ./taskmasterd -c test.conf
-./taskmasterd -c test.conf  # Debería fallar
+./taskmasterd -c test.conf  # Should fail
 ```
 
-### Pruebas de Control de Procesos
+### Process Control Tests
 
 ```bash
-# Crear configuración de prueba con programa simple
+# Create test config with a simple program
 cat > test.conf << EOF
 [program:test]
 command=/bin/sleep 30
@@ -444,21 +446,21 @@ autostart=true
 autorestart=true
 EOF
 
-# Ejecutar daemon y cliente
+# Run daemon and client
 ./taskmasterd -c test.conf -n
 ./taskmasterctl
 
-# En el cliente:
+# In the client:
 taskmaster> status
 taskmaster> stop test:0
 taskmaster> start test:0
 taskmaster> restart test
 ```
 
-### Pruebas de Variables
+### Variable Tests
 
 ```bash
-# Configuración con variables complejas
+# Configuration with complex variables
 cat > vars.conf << EOF
 [program:webapp]
 command=/usr/bin/webapp --port=800${PROCESS_NUM:*02d} --name=${PROGRAM_NAME}_${PROCESS_NUM}
@@ -466,17 +468,17 @@ environment=LOG_LEVEL="${LOG_LEVEL:-info}", WORKER_NAME="${USER:*upper}_${PROCES
 numprocs=3
 EOF
 
-# Test de expansión de variables
+# Variable expansion test
 LOG_LEVEL=debug ./taskmasterd -c vars.conf -n
 ```
 
-### Pruebas de Logging y Rotación
+### Logging and Rotation Tests
 
 ```bash
-# Test de rotación de logs
+# Log rotation test
 ./taskmasterd -c test.conf -l /tmp/daemon.log -y 1KB -z 3 -n
 
-# Generar logs hasta rotación
+# Generate logs until rotation
 ./taskmasterctl << EOF
 status
 tail test:0 stdout
@@ -484,10 +486,10 @@ tail test:1 stderr
 EOF
 ```
 
-### Pruebas de Attach/Detach
+### Attach/Detach Tests
 
 ```bash
-# Configuración con programa interactivo
+# Configuration with an interactive program
 cat > interactive.conf << EOF
 [program:shell]
 command=/bin/bash
@@ -497,20 +499,20 @@ stdout_logfile=NONE
 stderr_logfile=NONE
 EOF
 
-# Test de attach
+# Attach test
 ./taskmasterd -c interactive.conf -n
 ./taskmasterctl
 
-# En el cliente:
+# In the client:
 taskmaster> attach shell:0
-# Ahora estás en bash interactivo
-# Ctrl+C para detach
+# You are now in an interactive bash
+# Ctrl+C to detach
 ```
 
-### Pruebas de Conexión Remota
+### Remote Connection Tests
 
 ```bash
-# Configuración con servidor inet
+# Configuration with inet server
 cat > inet.conf << EOF
 [inet_http_server]
 port=127.0.0.1:9001
@@ -519,11 +521,11 @@ port=127.0.0.1:9001
 command=/bin/echo "Hello World"
 EOF
 
-# Conectar desde cliente remoto
+# Connect from remote client
 ./taskmasterctl -s http://127.0.0.1:9001
 ```
 
-## 📝 Ejemplos de Log
+## 📝 Log Examples
 
 ```bash
 2024-08-28 10:30:15,123 INFO     taskmasterd started with pid 12345
@@ -542,48 +544,48 @@ EOF
 2024-08-28 10:31:20,210 INFO     success: nginx entered RUNNING state
 ```
 
-## 🏗️ Arquitectura Técnica
+## 🏗️ Technical Architecture
 
-### Estructura del Daemon
-- **Daemonización**: Fork doble para independencia completa del terminal
-- **Control de Instancia**: Archivos PID y lock para evitar múltiples instancias
-- **Gestión de Señales**: Manejo completo de SIGHUP, SIGTERM, SIGINT, SIGCHLD
-- **Privilege De-Escalation**: Cambio seguro de usuario después del inicio
+### Daemon Structure
+- **Daemonization**: Double fork for full terminal independence
+- **Instance Control**: PID and lock files to prevent multiple instances
+- **Signal Management**: Full handling of SIGHUP, SIGTERM, SIGINT, SIGCHLD
+- **Privilege De-Escalation**: Safe user switch after startup
 
-### Sistema de Procesos
-- **Supervisión**: Monitoreo continuo del estado de procesos hijo
-- **Reinicio Inteligente**: Políticas configurables de reinicio automático
-- **Timeout Control**: Gestión de tiempos de inicio y parada
-- **Control de Recursos**: Verificación de descriptores y procesos disponibles
+### Process System
+- **Supervision**: Continuous monitoring of child process state
+- **Smart Restart**: Configurable automatic restart policies
+- **Timeout Control**: Start and stop timing management
+- **Resource Control**: Verification of available descriptors and processes
 
-### Sistema de Comunicación
-- **UNIX Sockets**: Comunicación local de alta velocidad
-- **INET Sockets**: Acceso remoto con autenticación
-- **Protocolo Propio**: Mensajes estructurados para comunicación cliente-daemon
-- **Attach/Detach**: Multiplexación de I/O para acceso directo a procesos
+### Communication System
+- **UNIX Sockets**: High-speed local communication
+- **INET Sockets**: Remote access with authentication
+- **Custom Protocol**: Structured messages for client-daemon communication
+- **Attach/Detach**: I/O multiplexing for direct process access
 
-### Parser de Configuración
-- **Sintaxis Supervisor**: Compatibilidad con configuraciones existentes
-- **Variables Dinámicas**: Expansión avanzada con modificadores
-- **Validación**: Verificación completa de sintaxis y semántica
-- **Recarga en Caliente**: Actualización sin interrumpir servicios estables
+### Configuration Parser
+- **Supervisor Syntax**: Compatibility with existing configurations
+- **Dynamic Variables**: Advanced expansion with modifiers
+- **Validation**: Full syntax and semantic validation
+- **Hot Reload**: Update without interrupting stable services
 
-### Sistema de Logging
-- **Rotación Automática**: Basada en tamaño y número de archivos
-- **Múltiples Niveles**: DEBUG, INFO, WARN, ERROR, CRITICAL
-- **Syslog Integration**: Envío opcional a sistema `syslog`
-- **Logs por Proceso**: Separación de `stdout`/`stderr` por proceso
+### Logging System
+- **Automatic Rotation**: Based on size and number of files
+- **Multiple Levels**: DEBUG, INFO, WARN, ERROR, CRITICAL
+- **Syslog Integration**: Optional output to `syslog`
+- **Per-Process Logs**: Separate `stdout`/`stderr` per process
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la WTFPL – [Do What the Fuck You Want to Public License](http://www.wtfpl.net/about/).
+This project is licensed under the WTFPL – [Do What the Fuck You Want to Public License](http://www.wtfpl.net/about/).
 
 ---
 
 <div align="center">
 
-**📋 Desarrollado como parte del curriculum de 42 School 📋**
+**📋 Developed as part of the 42 School curriculum 📋**
 
-*"Because processes need a reliable babysitter"*
+"*Because processes need a reliable babysitter"*
 
 </div>

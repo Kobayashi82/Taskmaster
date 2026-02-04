@@ -17,34 +17,32 @@
 
 [README in English](README.md)
 
-## 🎯 Descripción
-
 `Taskmaster` es un proyecto de `42 School` que implementa un daemon completo de control de trabajos con funcionalidades similares a supervisor. Este sistema permite gestionar procesos en segundo plano, mantenerlos vivos, reiniciarlos automáticamente cuando sea necesario y proporcionar un control total sobre su ciclo de vida. El proyecto incluye tanto el daemon principal como un cliente de control con shell interactivo avanzado.
 
 ## ✨ Características
 
 ### Daemon Principal (taskmasterd)
-- **Daemon Real**: Proceso que se ejecuta en segundo plano de forma independiente
-- **Control de Procesos**: Supervisión completa del ciclo de vida de procesos
-- **Configuración Dinámica**: Recarga de configuración sin parar el daemon (SIGHUP)
-- **Sistema de Logging**: Gestión avanzada con rotación automática y soporte syslog
-- **Privilege De-escalation**: Capacidad de ejecutarse como usuario específico
-- **Múltiples Protocolos**: Conexión vía UNIX sockets e INET sockets
-- **Variables Avanzadas**: Soporte para expansión de variables en configuración
-- **Gestión de Recursos**: Control de descriptores de archivos y procesos mínimos
+- `Daemon Real`: Proceso que se ejecuta en segundo plano de forma independiente
+- `Control de Procesos`: Supervisión completa del ciclo de vida de procesos
+- `Configuración Dinámica`: Recarga de configuración sin parar el daemon (SIGHUP)
+- `Sistema de Logging`: Gestión avanzada con rotación automática y soporte syslog
+- `Privilege De-escalation`: Capacidad de ejecutarse como usuario específico
+- `Múltiples Protocolos`: Conexión vía UNIX sockets e INET sockets
+- `Variables Avanzadas`: Soporte para expansión de variables en configuración
+- `Gestión de Recursos`: Control de descriptores de archivos y procesos mínimos
 
 ### Cliente de Control (taskmasterctl)
-- **Shell Interactivo Avanzado**: Con readline personalizado y soporte de modo `vi`
-- **Historial Completo**: Con búsqueda y expansión de historial
-- **Autocompletado**: Sistema inteligente de completado
-- **Attach/Detach**: Conexión y desconexión a procesos supervisados en tiempo real
-- **Control Remoto**: Gestión del daemon desde cliente remoto
+- `Shell Interactivo Avanzado`: Con readline personalizado y soporte de modo `vi`
+- `Historial Completo`: Con búsqueda y expansión de historial
+- `Autocompletado`: Sistema inteligente de completado
+- `Attach/Detach`: Conexión y desconexión a procesos supervisados en tiempo real
+- `Control Remoto`: Gestión del daemon desde cliente remoto
 
 ### Parser de Configuración
-- **Sintaxis Supervisor**: Compatible con formato supervisor estándar
-- **Parser Propio**: Implementación personalizada para máximo control
-- **Variables Dinámicas**: Soporte completo para variables del sistema y personalizadas
-- **Modificadores de Variables**: Sintaxis avanzada para manipulación de strings y números
+- `Sintaxis Supervisor`: Compatible con formato supervisor estándar
+- `Parser Propio`: Implementación personalizada para máximo control
+- `Variables Dinámicas`: Soporte completo para variables del sistema y personalizadas
+- `Modificadores de Variables`: Sintaxis avanzada para manipulación de strings y números
 
 ## 🔧 Instalación
 
@@ -134,11 +132,11 @@ tail -f /var/log/taskmaster/daemon.log
 
 ### Características del Shell Interactivo
 
-- **Readline Personalizado**: Implementación propia
-- **Historial Completo**: Navegación, búsqueda y expansión de historial
-- **Modo Vi**: Edición de líneas con comandos `vi`
-- **Autocompletado**: Completado inteligente de comandos y nombres de programas
-- **Sintaxis Coloreada**: Resaltado visual de comandos
+- `Readline Personalizado`: Implementación propia
+- `Historial Completo`: Navegación, búsqueda y expansión de historial
+- `Modo Vi`: Edición de líneas con comandos `vi`
+- `Autocompletado`: Completado inteligente de comandos y nombres de programas
+- `Sintaxis Coloreada`: Resaltado visual de comandos
 
 ### Comandos Disponibles
 
@@ -190,76 +188,76 @@ El archivo de configuración utiliza sintaxis similar a supervisor
 
 | Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
 |-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **nodaemon**                | Ejecutar en primer plano      | true/false                       | false                    |
-| **silent**                  | No mostrar logs en stdout     | true/false                       | false                    |
-| **user**                    | Usuario para ejecutar daemon  | string o UID                     | (usuario actual)         |
-| **umask**                   | Máscara de permisos           | octal                            | 022                      |
-| **directory**               | Directorio de trabajo         | path                             | (directorio actual)      |
-| **logfile**                 | Archivo de log del daemon     | path/AUTO/NONE                   | AUTO                     |
-| **logfile_maxbytes**        | Tamaño máximo del log         | bytes (KB/MB)                    | 50MB                     |
-| **logfile_backups**         | Número de backups de log      | int                              | 10                       |
-| **loglevel**                | Nivel de logging              | debug/info/warn/error/critical   | info                     |
-| **pidfile**                 | Archivo PID del daemon        | path/AUTO                        | AUTO                     |
-| **identifier**              | Identificador de instancia    | string                           | taskmaster               |
-| **childlogdir**             | Directorio logs de procesos   | path/AUTO                        | AUTO                     |
-| **strip_ansi**              | Eliminar códigos ANSI         | true/false                       | false                    |
-| **nocleanup**               | No limpiar al iniciar         | true/false                       | false                    |
-| **minfds**                  | Descriptores mínimos          | int                              | 1024                     |
-| **minprocs**                | Procesos mínimos disponibles  | int                              | 200                      |
-| **environment**             | Variables de entorno globales | KEY=Value                        | (vacío)                  |
+| `nodaemon`                  | Ejecutar en primer plano      | true/false                       | false                    |
+| `silent`                    | No mostrar logs en stdout     | true/false                       | false                    |
+| `user`                      | Usuario para ejecutar daemon  | string o UID                     | (usuario actual)         |
+| `umask`                     | Máscara de permisos           | octal                            | 022                      |
+| `directory`                 | Directorio de trabajo         | path                             | (directorio actual)      |
+| `logfile`                   | Archivo de log del daemon     | path/AUTO/NONE                   | AUTO                     |
+| `logfile_maxbytes`          | Tamaño máximo del log         | bytes (KB/MB)                    | 50MB                     |
+| `logfile_backups`           | Número de backups de log      | int                              | 10                       |
+| `loglevel`                  | Nivel de logging              | debug/info/warn/error/critical   | info                     |
+| `pidfile`                   | Archivo PID del daemon        | path/AUTO                        | AUTO                     |
+| `identifier`                | Identificador de instancia    | string                           | taskmaster               |
+| `childlogdir`               | Directorio logs de procesos   | path/AUTO                        | AUTO                     |
+| `strip_ansi`                | Eliminar códigos ANSI         | true/false                       | false                    |
+| `nocleanup`                 | No limpiar al iniciar         | true/false                       | false                    |
+| `minfds`                    | Descriptores mínimos          | int                              | 1024                     |
+| `minprocs`                  | Procesos mínimos disponibles  | int                              | 200                      |
+| `environment`               | Variables de entorno globales | KEY=Value                        | (vacío)                  |
 |
 
 #### Configuración de Programa
 
 | Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
 |-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **command**                 | Comando a ejecutar            | string                           | (requerido)              |
-| **numprocs**                | Número de procesos a mantener | int                              | 1                        |
-| **process_name**            | Patrón de nombres de proceso  | string                           | $PROGRAM_NAME            |
-| **directory**               | Directorio de trabajo         | path                             | /                        |
-| **umask**                   | Máscara de permisos           | octal                            | 022                      |
-| **user**                    | Usuario para ejecutar         | string                           | (usuario actual)         |
-| **autostart**               | Iniciar automáticamente       | bool                             | true                     |
-| **autorestart**             | Política de reinicio          | true/false/unexpected            | unexpected               |
-| **exitcodes**               | Códigos de salida esperados   | lista                            | 0                        |
-| **startretries**            | Intentos de inicio            | int                              | 3                        |
-| **starttime**               | Tiempo mínimo ejecutándose    | segundos                         | 1                        |
-| **stopsignal**              | Señal para parar gracefully   | TERM/HUP/INT/QUIT/KILL/USR1/USR2 | TERM                     |
-| **stoptime**                | Tiempo antes de SIGKILL       | segundos                         | 10                       |
-| **priority**                | Prioridad de inicio/parada    | int                              | 999                      |
-| **stdout_logfile**          | Archivo de log para stdout    | path/AUTO/NONE                   | AUTO                     |
-| **stderr_logfile**          | Archivo de log para stderr    | path/AUTO/NONE                   | AUTO                     |
-| **stdout_logfile_maxbytes** | Tamaño máximo stdout          | bytes  (KB/MB)                   | 50MB                     |
-| **stderr_logfile_maxbytes** | Tamaño máximo stderr          | bytes  (KB/MB)                   | 50MB                     |
-| **stdout_logfile_backups**  | Backups stdout                | int                              | 10                       |
-| **stderr_logfile_backups**  | Backups stderr                | int                              | 10                       |
-| **environment**             | Variables de entorno globales | KEY=Value                        | (vacío)                  |
+| `command`                   | Comando a ejecutar            | string                           | (requerido)              |
+| `numprocs`                  | Número de procesos a mantener | int                              | 1                        |
+| `process_name`              | Patrón de nombres de proceso  | string                           | $PROGRAM_NAME            |
+| `directory`                 | Directorio de trabajo         | path                             | /                        |
+| `umask`                     | Máscara de permisos           | octal                            | 022                      |
+| `user`                      | Usuario para ejecutar         | string                           | (usuario actual)         |
+| `autostart`                 | Iniciar automáticamente       | bool                             | true                     |
+| `autorestart`               | Política de reinicio          | true/false/unexpected            | unexpected               |
+| `exitcodes`                 | Códigos de salida esperados   | lista                            | 0                        |
+| `startretries`              | Intentos de inicio            | int                              | 3                        |
+| `starttime`                 | Tiempo mínimo ejecutándose    | segundos                         | 1                        |
+| `stopsignal`                | Señal para parar gracefully   | TERM/HUP/INT/QUIT/KILL/USR1/USR2 | TERM                     |
+| `stoptime`                  | Tiempo antes de SIGKILL       | segundos                         | 10                       |
+| `priority`                  | Prioridad de inicio/parada    | int                              | 999                      |
+| `stdout_logfile`            | Archivo de log para stdout    | path/AUTO/NONE                   | AUTO                     |
+| `stderr_logfile`            | Archivo de log para stderr    | path/AUTO/NONE                   | AUTO                     |
+| `stdout_logfile_maxbytes`   | Tamaño máximo stdout          | bytes  (KB/MB)                   | 50MB                     |
+| `stderr_logfile_maxbytes`   | Tamaño máximo stderr          | bytes  (KB/MB)                   | 50MB                     |
+| `stdout_logfile_backups`    | Backups stdout                | int                              | 10                       |
+| `stderr_logfile_backups`    | Backups stderr                | int                              | 10                       |
+| `environment`               | Variables de entorno globales | KEY=Value                        | (vacío)                  |
 |
 
 #### Configuración de Grupo
 
 | Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
 |-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **programs**                | Lista de programas del grupo  | lista                            | (requerido)              |
-| **priority**                | Prioridad de inicio del grupo | int                              | 999                      |
+| `programs`                  | Lista de programas del grupo  | lista                            | (requerido)              |
+| `priority`                  | Prioridad de inicio del grupo | int                              | 999                      |
 |
 
 #### Configuración del servidor UNIX
 
 | Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
 |-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **file**                    | Ruta del socket UNIX          | path                             | /var/run/taskmaster.sock |
-| **chmod**                   | Permisos del socket           | octal                            | 0700                     |
-| **chown**                   | Propietario del socket        | user:group                       | root:root                |
+| `file`                      | Ruta del socket UNIX          | path                             | /var/run/taskmaster.sock |
+| `chmod`                     | Permisos del socket           | octal                            | 0700                     |
+| `chown`                     | Propietario del socket        | user:group                       | root:root                |
 |
 
 #### Configuración del servidor INET
 
 | Parámetro                   | Descripción                   | Valores                          | Por Defecto              |
 |-----------------------------|-------------------------------|----------------------------------|--------------------------|
-| **port**                    | Host/IP y puerto de escucha   | host:port o *:port               | *:9001                   |
-| **username**                | Usuario para autenticación    | string                           | (sin auth)               |
-| **password**                | Contraseña para autenticación | string                           | (sin auth)               |
+| `port`                      | Host/IP y puerto de escucha   | host:port o *:port               | *:9001                   |
+| `username`                  | Usuario para autenticación    | string                           | (sin auth)               |
+| `password`                  | Contraseña para autenticación | string                           | (sin auth)               |
 |
 
 ### Ejemplo de archivo de configuración
@@ -360,59 +358,59 @@ El sistema de variables de Taskmaster permite una configuración dinámica y fle
 
 | Sintaxis                    | Descripción                                                     | Ejemplo             |
 |-----------------------------|-----------------------------------------------------------------|---------------------|
-| **${VAR:-default}**         | Si `VAR` no está definida o está vacía, devuelve `default`      | ${PORT:-8080}       |
-| **${VAR:+default}**         | Si `VAR` está definida y no está vacía, devuelve `default`      | ${DEBUG:+--verbose} |
+| `${VAR  :-default}`         | Si `VAR` no está definida o está vacía, devuelve `default`      | ${PORT:-8080}       |
+| `${VAR  :+default}`         | Si `VAR` está definida y no está vacía, devuelve `default`      | ${DEBUG:+--verbose} |
 |
 
 #### Manipulación de Cadenas
 
 | Sintaxis                    | Descripción                                                     | Ejemplo             |
 |-----------------------------|-----------------------------------------------------------------|---------------------|
-| **${VAR:offset}**           | Desde posición `offset` hasta el final                          | ${HOST:2}           |
-| **${VAR:offset:len}**       | Desde posición `offset`, toma `len` caracteres                  | ${HOST:0:3}         |
-| **${VAR: -offset}**         | Desde `offset` caracteres desde el final hasta el final         | ${HOST: -2}         |
-| **${VAR: -offset:len}**     | Desde `offset` caracteres desde el final, toma `len` caracteres | ${HOST: -2:3}       |
-| **${VAR:^}**                | Convertir primera letra a mayúsculas                            | ${USER:^}           |
-| **${VAR:^^}**               | Convertir todo a mayúsculas                                     | ${USER:^^}          |
-| **${VAR:,}**                | Convertir primera letra a minúsculas                            | ${USER:,}           |
-| **${VAR:,,}**               | Convertir todo a minúsculas                                     | ${USER:,,}          |
-| **${VAR:~}**                | Elimina desde el inicio hasta la última / (solo nombre archivo) | ${USER:~~}          |
+| `${VAR  :offset}`           | Desde posición `offset` hasta el final                          | ${HOST:2}           |
+| `${VAR  :offset:len}`       | Desde posición `offset`, toma `len` caracteres                  | ${HOST:0:3}         |
+| `${VAR  : -offset}`         | Desde `offset` caracteres desde el final hasta el final         | ${HOST: -2}         |
+| `${VAR  : -offset:len}`     | Desde `offset` caracteres desde el final, toma `len` caracteres | ${HOST: -2:3}       |
+| `${VAR  :^}`                | Convertir primera letra a mayúsculas                            | ${USER:^}           |
+| `${VAR  :^^}`               | Convertir todo a mayúsculas                                     | ${USER:^^}          |
+| `${VAR  :,}`                | Convertir primera letra a minúsculas                            | ${USER:,}           |
+| `${VAR  :,,}`               | Convertir todo a minúsculas                                     | ${USER:,,}          |
+| `${VAR  :~}`                | Elimina desde el inicio hasta la última / (solo nombre archivo) | ${USER:~~}          |
 |
 
 #### Formateo Numérico
 
 | Sintaxis                    | Descripción                                                     | Ejemplo             |
 |-----------------------------|-----------------------------------------------------------------|---------------------|
-| **${#VAR}**                 | Longitud de la variable                                         | ${#PROCESS_NUM}     |
-| **${VAR:d}**                | Entero decimal con signo                                        | ${PROCESS_NUM:*d}   |
-| **${VAR:02d}**              | Entero con ceros a la izquierda                                 | ${PROCESS_NUM:*02d} |
-| **${VAR:x}**                | Hexadecimal minúsculas                                          | ${PORT:*x}          |
-| **${VAR:X}**                | Hexadecimal mayúsculas                                          | ${PORT:*X}          |
-| **${VAR:#x}**               | Hexadecimal minúsculas (precedido de 0x)                        | ${PORT:*#x}         |
-| **${VAR:#X}**               | Hexadecimal mayúsculas (precedido de 0X)                        | ${PORT:*#X}         |
-| **${VAR:o}**                | Octal                                                           | ${UMASK:*o}         |    
+| `${#VAR  }`                 | Longitud de la variable                                         | ${#PROCESS_NUM}     |
+| `${VAR  :d}`                | Entero decimal con signo                                        | ${PROCESS_NUM:*d}   |
+| `${VAR  :02d}`              | Entero con ceros a la izquierda                                 | ${PROCESS_NUM:*02d} |
+| `${VAR  :x}`                | Hexadecimal minúsculas                                          | ${PORT:*x}          |
+| `${VAR  :X}`                | Hexadecimal mayúsculas                                          | ${PORT:*X}          |
+| `${VAR  :#x}`               | Hexadecimal minúsculas (precedido de 0x)                        | ${PORT:*#x}         |
+| `${VAR  :#X}`               | Hexadecimal mayúsculas (precedido de 0X)                        | ${PORT:*#X}         |
+| `${VAR  :o}`                | Octal                                                           | ${UMASK:*o}         |    
 |
 
 #### Variables de Taskmaster
 
 | Sintaxis                    | Descripción                                                                           |
 |-----------------------------|---------------------------------------------------------------------------------------|
-| **TASKMASTER_ENABLED**      | Flag indicando que el proceso está bajo control de Taskmaster                         |
-| **TASKMASTER_PROCESS_NAME** | Nombre del proceso especificado en el archivo de configuración                        |
-| **TASKMASTER_GROUP_NAME**   | Nombre del grupo al que pertenece el proceso                                          |
-| **TASKMASTER_SERVER_URL**   | URL del servidor interno                                                              |
+| `TASKMASTER_ENABLED`        | Flag indicando que el proceso está bajo control de Taskmaster                         |
+| `TASKMASTER_PROCESS_NAME`   | Nombre del proceso especificado en el archivo de configuración                        |
+| `TASKMASTER_GROUP_NAME`     | Nombre del grupo al que pertenece el proceso                                          |
+| `TASKMASTER_SERVER_URL`     | URL del servidor interno                                                              |
 |
 
 #### Variables de Configuración
 
 | Variable                    | Descripción                                                                           |
 |-----------------------------|---------------------------------------------------------------------------------------|
-| **HERE**                    | Directorio del archivo de configuración                                               |
-| **HOST_NAME**               | Nombre del host del sistema                                                           |
-| **GROUP_NAME**              | Nombre del grupo actual                                                               |
-| **PROGRAM_NAME**            | Nombre del programa                                                                   |
-| **NUMPROCS**                | Número total de procesos                                                              |
-| **PROCESS_NUM**             | Número de proceso (0, 1, 2...)                                                        |
+| `HERE`                      | Directorio del archivo de configuración                                               |
+| `HOST_NAME`                 | Nombre del host del sistema                                                           |
+| `GROUP_NAME`                | Nombre del grupo actual                                                               |
+| `PROGRAM_NAME`              | Nombre del programa                                                                   |
+| `NUMPROCS`                  | Número total de procesos                                                              |
+| `PROCESS_NUM`               | Número de proceso (0, 1, 2...)                                                        |
 |
 
 ## 🧪 Testing
@@ -547,34 +545,34 @@ EOF
 ## 🏗️ Arquitectura Técnica
 
 ### Estructura del Daemon
-- **Daemonización**: Fork doble para independencia completa del terminal
-- **Control de Instancia**: Archivos PID y lock para evitar múltiples instancias
-- **Gestión de Señales**: Manejo completo de SIGHUP, SIGTERM, SIGINT, SIGCHLD
-- **Privilege De-Escalation**: Cambio seguro de usuario después del inicio
+- `Daemonización`: Fork doble para independencia completa del terminal
+- `Control de Instancia`: Archivos PID y lock para evitar múltiples instancias
+- `Gestión de Señales`: Manejo completo de SIGHUP, SIGTERM, SIGINT, SIGCHLD
+- `Privilege De-Escalation`: Cambio seguro de usuario después del inicio
 
 ### Sistema de Procesos
-- **Supervisión**: Monitoreo continuo del estado de procesos hijo
-- **Reinicio Inteligente**: Políticas configurables de reinicio automático
-- **Timeout Control**: Gestión de tiempos de inicio y parada
-- **Control de Recursos**: Verificación de descriptores y procesos disponibles
+- `Supervisión`: Monitoreo continuo del estado de procesos hijo
+- `Reinicio Inteligente`: Políticas configurables de reinicio automático
+- `Timeout Control`: Gestión de tiempos de inicio y parada
+- `Control de Recursos`: Verificación de descriptores y procesos disponibles
 
 ### Sistema de Comunicación
-- **UNIX Sockets**: Comunicación local de alta velocidad
-- **INET Sockets**: Acceso remoto con autenticación
-- **Protocolo Propio**: Mensajes estructurados para comunicación cliente-daemon
-- **Attach/Detach**: Multiplexación de I/O para acceso directo a procesos
+- `UNIX Sockets`: Comunicación local de alta velocidad
+- `INET Sockets`: Acceso remoto con autenticación
+- `Protocolo Propio`: Mensajes estructurados para comunicación cliente-daemon
+- `Attach/Detach`: Multiplexación de I/O para acceso directo a procesos
 
 ### Parser de Configuración
-- **Sintaxis Supervisor**: Compatibilidad con configuraciones existentes
-- **Variables Dinámicas**: Expansión avanzada con modificadores
-- **Validación**: Verificación completa de sintaxis y semántica
-- **Recarga en Caliente**: Actualización sin interrumpir servicios estables
+- `Sintaxis Supervisor`: Compatibilidad con configuraciones existentes
+- `Variables Dinámicas`: Expansión avanzada con modificadores
+- `Validación`: Verificación completa de sintaxis y semántica
+- `Recarga en Caliente`: Actualización sin interrumpir servicios estables
 
 ### Sistema de Logging
-- **Rotación Automática**: Basada en tamaño y número de archivos
-- **Múltiples Niveles**: DEBUG, INFO, WARN, ERROR, CRITICAL
-- **Syslog Integration**: Envío opcional a sistema `syslog`
-- **Logs por Proceso**: Separación de `stdout`/`stderr` por proceso
+- `Rotación Automática`: Basada en tamaño y número de archivos
+- `Múltiples Niveles`: DEBUG, INFO, WARN, ERROR, CRITICAL
+- `Syslog Integration`: Envío opcional a sistema `syslog`
+- `Logs por Proceso`: Separación de `stdout`/`stderr` por proceso
 
 ## 📄 Licencia
 

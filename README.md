@@ -17,34 +17,32 @@
 
 [README en Español](README_es.md)
 
-## 🎯 Description
-
 `Taskmaster` is a `42 School` project that implements a complete job-control daemon with supervisor-like functionality. This system allows you to manage background processes, keep them alive, restart them automatically when needed, and provide full control over their lifecycle. The project includes both the main daemon and a control client with an advanced interactive shell.
 
 ## ✨ Features
 
 ### Main Daemon (taskmasterd)
-- **Real Daemon**: Process that runs independently in the background
-- **Process Control**: Full supervision of process lifecycles
-- **Dynamic Configuration**: Reload configuration without stopping the daemon (SIGHUP)
-- **Logging System**: Advanced management with automatic rotation and syslog support
-- **Privilege De-escalation**: Ability to run as a specific user
-- **Multiple Protocols**: Connection via UNIX sockets and INET sockets
-- **Advanced Variables**: Support for variable expansion in configuration
-- **Resource Management**: Control of file descriptors and minimum processes
+- `Real Daemon`: Process that runs independently in the background
+- `Process Control`: Full supervision of process lifecycles
+- `Dynamic Configuration`: Reload configuration without stopping the daemon (SIGHUP)
+- `Logging System`: Advanced management with automatic rotation and syslog support
+- `Privilege De-escalation`: Ability to run as a specific user
+- `Multiple Protocols`: Connection via UNIX sockets and INET sockets
+- `Advanced Variables`: Support for variable expansion in configuration
+- `Resource Management`: Control of file descriptors and minimum processes
 
 ### Control Client (taskmasterctl)
-- **Advanced Interactive Shell**: Custom readline with `vi` mode support
-- **Full History**: History search and expansion
-- **Autocomplete**: Intelligent completion system
-- **Attach/Detach**: Connect and disconnect to supervised processes in real time
-- **Remote Control**: Manage the daemon from a remote client
+- `Advanced Interactive Shell`: Custom readline with `vi` mode support
+- `Full History`: History search and expansion
+- `Autocomplete`: Intelligent completion system
+- `Attach/Detach`: Connect and disconnect to supervised processes in real time
+- `Remote Control`: Manage the daemon from a remote client
 
 ### Configuration Parser
-- **Supervisor Syntax**: Compatible with the standard supervisor format
-- **Custom Parser**: In-house implementation for maximum control
-- **Dynamic Variables**: Full support for system and custom variables
-- **Variable Modifiers**: Advanced syntax for string and number manipulation
+- `Supervisor Syntax`: Compatible with the standard supervisor format
+- `Custom Parser`: In-house implementation for maximum control
+- `Dynamic Variables`: Full support for system and custom variables
+- `Variable Modifiers`: Advanced syntax for string and number manipulation
 
 ## 🔧 Installation
 
@@ -134,11 +132,11 @@ tail -f /var/log/taskmaster/daemon.log
 
 ### Interactive Shell Features
 
-- **Custom Readline**: In-house implementation
-- **Full History**: Navigation, search, and history expansion
-- **Vi Mode**: Line editing with `vi` commands
-- **Autocomplete**: Intelligent completion for commands and program names
-- **Colored Syntax**: Visual command highlighting
+- `Custom Readline`: In-house implementation
+- `Full History`: Navigation, search, and history expansion
+- `Vi Mode`: Line editing with `vi` commands
+- `Autocomplete`: Intelligent completion for commands and program names
+- `Colored Syntax`: Visual command highlighting
 
 ### Available Commands
 
@@ -188,79 +186,74 @@ The configuration file uses supervisor-like syntax.
 
 #### Taskmasterd Configuration
 
-| Parameter                   | Description                    | Values                           | Default                  |
-|----------------------------|--------------------------------|----------------------------------|--------------------------|
-| **nodaemon**               | Run in foreground              | true/false                       | false                    |
-| **silent**                 | Do not show logs on stdout     | true/false                       | false                    |
-| **user**                   | User to run daemon             | string or UID                    | (current user)           |
-| **umask**                  | Permission umask               | octal                            | 022                      |
-| **directory**              | Working directory              | path                             | (current directory)      |
-| **logfile**                | Daemon log file                | path/AUTO/NONE                   | AUTO                     |
-| **logfile_maxbytes**       | Max log size                   | bytes (KB/MB)                    | 50MB                     |
-| **logfile_backups**        | Number of log backups          | int                              | 10                       |
-| **loglevel**               | Logging level                  | debug/info/warn/error/critical   | info                     |
-| **pidfile**                | Daemon PID file                | path/AUTO                        | AUTO                     |
-| **identifier**             | Instance identifier            | string                           | taskmaster               |
-| **childlogdir**            | Child process logs directory   | path/AUTO                        | AUTO                     |
-| **strip_ansi**             | Strip ANSI codes               | true/false                       | false                    |
-| **nocleanup**              | Do not clean up on start       | true/false                       | false                    |
-| **minfds**                 | Minimum file descriptors       | int                              | 1024                     |
-| **minprocs**               | Minimum available processes    | int                              | 200                      |
-| **environment**            | Global environment variables   | KEY=Value                        | (empty)                  |
-|
+| Parameter                 | Description                    | Values                           | Default                  |
+|---------------------------|--------------------------------|----------------------------------|--------------------------|
+| `nodaemon`                | Run in foreground              | true/false                       | false                    |
+| `silent`                  | Do not show logs on stdout     | true/false                       | false                    |
+| `user`                    | User to run daemon             | string or UID                    | (current user)           |
+| `umask`                   | Permission umask               | octal                            | 022                      |
+| `directory`               | Working directory              | path                             | (current directory)      |
+| `logfile`                 | Daemon log file                | path/AUTO/NONE                   | AUTO                     |
+| `logfile_maxbytes`        | Max log size                   | bytes (KB/MB)                    | 50MB                     |
+| `logfile_backups`         | Number of log backups          | int                              | 10                       |
+| `loglevel`                | Logging level                  | debug/info/warn/error/critical   | info                     |
+| `pidfile`                 | Daemon PID file                | path/AUTO                        | AUTO                     |
+| `identifier`              | Instance identifier            | string                           | taskmaster               |
+| `childlogdir`             | Child process logs directory   | path/AUTO                        | AUTO                     |
+| `strip_ansi`              | Strip ANSI codes               | true/false                       | false                    |
+| `nocleanup`               | Do not clean up on start       | true/false                       | false                    |
+| `minfds`                  | Minimum file descriptors       | int                              | 1024                     |
+| `minprocs`                | Minimum available processes    | int                              | 200                      |
+| `environment`             | Global environment variables   | KEY=Value                        | (empty)                  |
 
 #### Program Configuration
 
-| Parameter                   | Description                    | Values                          | Default                  |
-|----------------------------|--------------------------------|---------------------------------|--------------------------|
-| **command**                | Command to execute             | string                          | (required)               |
-| **numprocs**               | Number of processes to keep    | int                             | 1                        |
-| **process_name**           | Process name pattern           | string                          | $PROGRAM_NAME            |
-| **directory**              | Working directory              | path                            | /                        |
-| **umask**                  | Permission umask               | octal                           | 022                      |
-| **user**                   | User to run                    | string                          | (current user)           |
-| **autostart**              | Start automatically            | bool                            | true                     |
-| **autorestart**            | Restart policy                 | true/false/unexpected           | unexpected               |
-| **exitcodes**              | Expected exit codes            | list                            | 0                        |
-| **startretries**           | Start retries                  | int                             | 3                        |
-| **starttime**              | Minimum run time               | seconds                         | 1                        |
-| **stopsignal**             | Signal to stop gracefully      | TERM/HUP/INT/QUIT/KILL/USR1/USR2 | TERM                     |
-| **stoptime**               | Time before SIGKILL            | seconds                         | 10                       |
-| **priority**               | Start/stop priority            | int                             | 999                      |
-| **stdout_logfile**         | stdout log file                | path/AUTO/NONE                  | AUTO                     |
-| **stderr_logfile**         | stderr log file                | path/AUTO/NONE                  | AUTO                     |
-| **stdout_logfile_maxbytes**| Max stdout size                | bytes  (KB/MB)                  | 50MB                     |
-| **stderr_logfile_maxbytes**| Max stderr size                | bytes  (KB/MB)                  | 50MB                     |
-| **stdout_logfile_backups** | stdout backups                 | int                             | 10                       |
-| **stderr_logfile_backups** | stderr backups                 | int                             | 10                       |
-| **environment**            | Global environment variables   | KEY=Value                       | (empty)                  |
-|
+| Parameter                 | Description                    | Values                           | Default                  |
+|---------------------------|--------------------------------|----------------------------------|--------------------------|
+| `command`                 | Command to execute             | string                           | (required)               |
+| `numprocs`                | Number of processes to keep    | int                              | 1                        |
+| `process_name`            | Process name pattern           | string                           | $PROGRAM_NAME            |
+| `directory`               | Working directory              | path                             | /                        |
+| `umask`                   | Permission umask               | octal                            | 022                      |
+| `user`                    | User to run                    | string                           | (current user)           |
+| `autostart`               | Start automatically            | bool                             | true                     |
+| `autorestart`             | Restart policy                 | true/false/unexpected            | unexpected               |
+| `exitcodes`               | Expected exit codes            | list                             | 0                        |
+| `startretries`            | Start retries                  | int                              | 3                        |
+| `starttime`               | Minimum run time               | seconds                          | 1                        |
+| `stopsignal`              | Signal to stop gracefully      | TERM/HUP/INT/QUIT/KILL/USR1/USR2 | TERM                     |
+| `stoptime`                | Time before SIGKILL            | seconds                          | 10                       |
+| `priority`                | Start/stop priority            | int                              | 999                      |
+| `stdout_logfile`          | stdout log file                | path/AUTO/NONE                   | AUTO                     |
+| `stderr_logfile`          | stderr log file                | path/AUTO/NONE                   | AUTO                     |
+| `stdout_logfile_maxbytes` | Max stdout size                | bytes  (KB/MB)                   | 50MB                     |
+| `stderr_logfile_maxbytes` | Max stderr size                | bytes  (KB/MB)                   | 50MB                     |
+| `stdout_logfile_backups`  | stdout backups                 | int                              | 10                       |
+| `stderr_logfile_backups`  | stderr backups                 | int                              | 10                       |
+| `environment`             | Global environment variables   | KEY=Value                        | (empty)                  |
 
 #### Group Configuration
 
-| Parameter                   | Description                    | Values                          | Default                  |
-|----------------------------|--------------------------------|----------------------------------|--------------------------|
-| **programs**               | Group program list             | list                            | (required)              |
-| **priority**               | Group start priority           | int                             | 999                      |
-|
+| Parameter                 | Description                    | Values                           | Default                  |
+|---------------------------|--------------------------------|----------------------------------|--------------------------|
+| `programs`                | Group program list             | list                             | (required)               |
+| `priority`                | Group start priority           | int                              | 999                      |
 
 #### UNIX Server Configuration
 
-| Parameter                   | Description                    | Values                          | Default                  |
-|----------------------------|--------------------------------|----------------------------------|--------------------------|
-| **file**                   | UNIX socket path               | path                             | /var/run/taskmaster.sock |
-| **chmod**                  | Socket permissions             | octal                            | 0700                     |
-| **chown**                  | Socket owner                   | user:group                       | root:root                |
-|
+| Parameter                 | Description                    | Values                           | Default                  |
+|---------------------------|--------------------------------|----------------------------------|--------------------------|
+| `file`                    | UNIX socket path               | path                             | /var/run/taskmaster.sock |
+| `chmod`                   | Socket permissions             | octal                            | 0700                     |
+| `chown`                   | Socket owner                   | user:group                       | root:root                |
 
 #### INET Server Configuration
 
-| Parameter                   | Description                    | Values                          | Default                  |
-|----------------------------|--------------------------------|----------------------------------|--------------------------|
-| **port**                   | Host/IP and listening port     | host:port or *:port              | *:9001                   |
-| **username**               | Authentication username        | string                           | (no auth)                |
-| **password**               | Authentication password        | string                           | (no auth)                |
-|
+| Parameter                 | Description                    | Values                           | Default                  |
+|---------------------------|--------------------------------|----------------------------------|--------------------------|
+| `port`                    | Host/IP and listening port     | host:port or *:port              | *:9001                   |
+| `username`                | Authentication username        | string                           | (no auth)                |
+| `password`                | Authentication password        | string                           | (no auth)                |
 
 ### Configuration File Example
 
@@ -358,62 +351,57 @@ Taskmaster's variable system enables dynamic and flexible configuration through 
 
 #### Default Values
 
-| Syntax                      | Description                                                       | Example             |
-|----------------------------|-------------------------------------------------------------------|---------------------|
-| **${VAR:-default}**        | If `VAR` is unset or empty, returns `default`                     | ${PORT:-8080}       |
-| **${VAR:+default}**        | If `VAR` is set and not empty, returns `default`                  | ${DEBUG:+--verbose} |
-|
+| Syntax                    | Description                                                       | Example             |
+|---------------------------|-------------------------------------------------------------------|---------------------|
+| `${VAR:-default}`         | If `VAR` is unset or empty, returns `default`                     | ${PORT:-8080}       |
+| `${VAR:+default}`         | If `VAR` is set and not empty, returns `default`                  | ${DEBUG:+--verbose} |
 
 #### String Manipulation
 
-| Syntax                      | Description                                                       | Example             |
-|----------------------------|-------------------------------------------------------------------|---------------------|
-| **${VAR:offset}**          | From position `offset` to the end                                 | ${HOST:2}           |
-| **${VAR:offset:len}**      | From position `offset`, take `len` characters                     | ${HOST:0:3}         |
-| **${VAR: -offset}**        | From `offset` characters from the end to the end                  | ${HOST: -2}         |
-| **${VAR: -offset:len}**    | From `offset` characters from the end, take `len` characters      | ${HOST: -2:3}       |
-| **${VAR:^}**               | Uppercase first letter                                            | ${USER:^}           |
-| **${VAR:^^}**              | Uppercase all                                                     | ${USER:^^}          |
-| **${VAR:,}**               | Lowercase first letter                                            | ${USER:,}           |
-| **${VAR:,,}**              | Lowercase all                                                     | ${USER:,,}          |
-| **${VAR:~}**               | Remove from start to last / (file name only)                      | ${USER:~~}          |
-|
+| Syntax                    | Description                                                       | Example             |
+|---------------------------|-------------------------------------------------------------------|---------------------|
+| `${VAR:offset}`           | From position `offset` to the end                                 | ${HOST:2}           |
+| `${VAR:offset:len}`       | From position `offset`, take `len` characters                     | ${HOST:0:3}         |
+| `${VAR: -offset}`         | From `offset` characters from the end to the end                  | ${HOST: -2}         |
+| `${VAR: -offset:len}`     | From `offset` characters from the end, take `len` characters      | ${HOST: -2:3}       |
+| `${VAR:^}`                | Uppercase first letter                                            | ${USER:^}           |
+| `${VAR:^^}`               | Uppercase all                                                     | ${USER:^^}          |
+| `${VAR:,}`                | Lowercase first letter                                            | ${USER:,}           |
+| `${VAR:,,}`               | Lowercase all                                                     | ${USER:,,}          |
+| `${VAR:~}`                | Remove from start to last / (file name only)                      | ${USER:~~}          |
 
 #### Numeric Formatting
 
-| Syntax                      | Description                                                       | Example             |
-|----------------------------|-------------------------------------------------------------------|---------------------|
-| **${#VAR}**                | Variable length                                                   | ${#PROCESS_NUM}     |
-| **${VAR:d}**               | Signed decimal integer                                            | ${PROCESS_NUM:*d}   |
-| **${VAR:02d}**             | Integer with leading zeros                                        | ${PROCESS_NUM:*02d} |
-| **${VAR:x}**               | Lowercase hexadecimal                                             | ${PORT:*x}          |
-| **${VAR:X}**               | Uppercase hexadecimal                                             | ${PORT:*X}          |
-| **${VAR:#x}**              | Lowercase hexadecimal (prefixed with 0x)                          | ${PORT:*#x}         |
-| **${VAR:#X}**              | Uppercase hexadecimal (prefixed with 0X)                          | ${PORT:*#X}         |
-| **${VAR:o}**               | Octal                                                             | ${UMASK:*o}         |    
-|
+| Syntax                    | Description                                                       | Example             |
+|---------------------------|-------------------------------------------------------------------|---------------------|
+| `${#VAR}`                 | Variable length                                                   | ${#PROCESS_NUM}     |
+| `${VAR:d}`                | Signed decimal integer                                            | ${PROCESS_NUM:*d}   |
+| `${VAR:02d}`              | Integer with leading zeros                                        | ${PROCESS_NUM:*02d} |
+| `${VAR:x}`                | Lowercase hexadecimal                                             | ${PORT:*x}          |
+| `${VAR:X}`                | Uppercase hexadecimal                                             | ${PORT:*X}          |
+| `${VAR:#x}`               | Lowercase hexadecimal (prefixed with 0x)                          | ${PORT:*#x}         |
+| `${VAR:#X}`               | Uppercase hexadecimal (prefixed with 0X)                          | ${PORT:*#X}         |
+| `${VAR:o}`                | Octal                                                             | ${UMASK:*o}         |    
 
 #### Taskmaster Variables
 
-| Syntax                      | Description                                                                           |
-|----------------------------|---------------------------------------------------------------------------------------|
-| **TASKMASTER_ENABLED**     | Flag indicating the process is under Taskmaster control                               |
-| **TASKMASTER_PROCESS_NAME**| Process name specified in the configuration file                                      |
-| **TASKMASTER_GROUP_NAME**  | Group name the process belongs to                                                     |
-| **TASKMASTER_SERVER_URL**  | Internal server URL                                                                   |
-|
+| Syntax                    | Description                                                                             |
+|---------------------------|-----------------------------------------------------------------------------------------|
+| `TASKMASTER_ENABLED`      | Flag indicating the process is under Taskmaster control                                 |
+| `TASKMASTER_PROCESS_NAME` | Process name specified in the configuration file                                        |
+| `TASKMASTER_GROUP_NAME`   | Group name the process belongs to                                                       |
+| `TASKMASTER_SERVER_URL`   | Internal server URL                                                                     |
 
 #### Configuration Variables
 
-| Variable                   | Description                                                                           |
-|---------------------------|---------------------------------------------------------------------------------------|
-| **HERE**                   | Configuration file directory                                                          |
-| **HOST_NAME**              | System host name                                                                      |
-| **GROUP_NAME**             | Current group name                                                                    |
-| **PROGRAM_NAME**           | Program name                                                                          |
-| **NUMPROCS**               | Total number of processes                                                             |
-| **PROCESS_NUM**            | Process number (0, 1, 2...)                                                           |
-|
+| Variable                 | Description                                                                              |
+|--------------------------|------------------------------------------------------------------------------------------|
+| `HERE`                   | Configuration file directory                                                             |
+| `HOST_NAME`              | System host name                                                                         |
+| `GROUP_NAME`             | Current group name                                                                       |
+| `PROGRAM_NAME`           | Program name                                                                             |
+| `NUMPROCS`               | Total number of processes                                                                |
+| `PROCESS_NUM`            | Process number (0, 1, 2...)                                                              |
 
 ## 🧪 Testing
 
@@ -547,34 +535,34 @@ EOF
 ## 🏗️ Technical Architecture
 
 ### Daemon Structure
-- **Daemonization**: Double fork for full terminal independence
-- **Instance Control**: PID and lock files to prevent multiple instances
-- **Signal Management**: Full handling of SIGHUP, SIGTERM, SIGINT, SIGCHLD
-- **Privilege De-Escalation**: Safe user switch after startup
+-`Daemonizatio`: Double fork for full terminal independence
+-`Instance Contro`: PID and lock files to prevent multiple instances
+-`Signal Managemen`: Full handling of SIGHUP, SIGTERM, SIGINT, SIGCHLD
+-`Privilege De-Escalatio`: Safe user switch after startup
 
 ### Process System
-- **Supervision**: Continuous monitoring of child process state
-- **Smart Restart**: Configurable automatic restart policies
-- **Timeout Control**: Start and stop timing management
-- **Resource Control**: Verification of available descriptors and processes
+-`Supervisio`: Continuous monitoring of child process state
+-`Smart Restar`: Configurable automatic restart policies
+-`Timeout Contro`: Start and stop timing management
+-`Resource Contro`: Verification of available descriptors and processes
 
 ### Communication System
-- **UNIX Sockets**: High-speed local communication
-- **INET Sockets**: Remote access with authentication
-- **Custom Protocol**: Structured messages for client-daemon communication
-- **Attach/Detach**: I/O multiplexing for direct process access
+-`UNIX Socket`: High-speed local communication
+-`INET Socket`: Remote access with authentication
+-`Custom Protoco`: Structured messages for client-daemon communication
+-`Attach/Detac`: I/O multiplexing for direct process access
 
 ### Configuration Parser
-- **Supervisor Syntax**: Compatibility with existing configurations
-- **Dynamic Variables**: Advanced expansion with modifiers
-- **Validation**: Full syntax and semantic validation
-- **Hot Reload**: Update without interrupting stable services
+-`Supervisor Synta`: Compatibility with existing configurations
+-`Dynamic Variable`: Advanced expansion with modifiers
+-`Validatio`: Full syntax and semantic validation
+-`Hot Reloa`: Update without interrupting stable services
 
 ### Logging System
-- **Automatic Rotation**: Based on size and number of files
-- **Multiple Levels**: DEBUG, INFO, WARN, ERROR, CRITICAL
-- **Syslog Integration**: Optional output to `syslog`
-- **Per-Process Logs**: Separate `stdout`/`stderr` per process
+-`Automatic Rotatio`: Based on size and number of files
+-`Multiple Level`: DEBUG, INFO, WARN, ERROR, CRITICAL
+-`Syslog Integratio`: Optional output to `syslog`
+-`Per-Process Log`: Separate `stdout`/`stderr` per process
 
 ## 📄 License
 

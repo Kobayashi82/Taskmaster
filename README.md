@@ -536,34 +536,34 @@ EOF
 ## 🏗️ Technical Architecture
 
 ### Daemon Structure
--`Daemonizatio`: Double fork for full terminal independence
--`Instance Contro`: PID and lock files to prevent multiple instances
--`Signal Managemen`: Full handling of SIGHUP, SIGTERM, SIGINT, SIGCHLD
--`Privilege De-Escalatio`: Safe user switch after startup
+-`Daemonization`: Double fork for full terminal independence
+-`Instance Control`: PID and lock files to prevent multiple instances
+-`Signal Management`: Full handling of SIGHUP, SIGTERM, SIGINT, SIGCHLD
+-`Privilege De-Escalation`: Safe user switch after startup
 
 ### Process System
--`Supervisio`: Continuous monitoring of child process state
--`Smart Restar`: Configurable automatic restart policies
--`Timeout Contro`: Start and stop timing management
--`Resource Contro`: Verification of available descriptors and processes
+-`Supervision`: Continuous monitoring of child process state
+-`Smart Restart`: Configurable automatic restart policies
+-`Timeout Control`: Start and stop timing management
+-`Resource Control`: Verification of available descriptors and processes
 
 ### Communication System
--`UNIX Socket`: High-speed local communication
--`INET Socket`: Remote access with authentication
--`Custom Protoco`: Structured messages for client-daemon communication
+-`UNIX Sockets`: High-speed local communication
+-`INET Sockets`: Remote access with authentication
+-`Custom Protocol`: Structured messages for client-daemon communication
 -`Attach/Detac`: I/O multiplexing for direct process access
 
 ### Configuration Parser
--`Supervisor Synta`: Compatibility with existing configurations
--`Dynamic Variable`: Advanced expansion with modifiers
--`Validatio`: Full syntax and semantic validation
--`Hot Reloa`: Update without interrupting stable services
+-`Supervisor Syntax`: Compatibility with existing configurations
+-`Dynamic Variables`: Advanced expansion with modifiers
+-`Validation`: Full syntax and semantic validation
+-`Hot Reload`: Update without interrupting stable services
 
 ### Logging System
--`Automatic Rotatio`: Based on size and number of files
--`Multiple Level`: DEBUG, INFO, WARN, ERROR, CRITICAL
--`Syslog Integratio`: Optional output to `syslog`
--`Per-Process Log`: Separate `stdout`/`stderr` per process
+-`Automatic Rotation`: Based on size and number of files
+-`Multiple Levels`: DEBUG, INFO, WARN, ERROR, CRITICAL
+-`Syslog Integration`: Optional output to `syslog`
+-`Per-Process Logs`: Separate `stdout`/`stderr` per process
 
 ## 📄 License
 

@@ -548,7 +548,7 @@ EOF
 ### Estructura del Daemon
 - `Daemonización`: Fork doble para independencia completa del terminal
 - `Control de Instancia`: Archivos PID y lock para evitar múltiples instancias
-- `Gestión de Señales`: Manejo completo de SIGHUP, SIGTERM, SIGINT, SIGCHLD
+- `Gestión de Señales`: Manejo completo de `SIGHUP`, `SIGTERM`, `SIGINT`, `SIGCHLD`
 - `Privilege De-Escalation`: Cambio seguro de usuario después del inicio
 
 ### Sistema de Procesos

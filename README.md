@@ -536,34 +536,34 @@ EOF
 ## 🏗️ Technical Architecture
 
 ### Daemon Structure
--`Daemonization`: Double fork for full terminal independence
--`Instance Control`: PID and lock files to prevent multiple instances
--`Signal Management`: Full handling of SIGHUP, SIGTERM, SIGINT, SIGCHLD
--`Privilege De-Escalation`: Safe user switch after startup
+- `Daemonization`: Double fork for full terminal independence
+- `Instance Control`: PID and lock files to prevent multiple instances
+- `Signal Management`: Full handling of `SIGHUP`, `SIGTERM`, `SIGINT`, `SIGCHLD`
+- `Privilege De-Escalation`: Safe user switch after startup
 
 ### Process System
--`Supervision`: Continuous monitoring of child process state
--`Smart Restart`: Configurable automatic restart policies
--`Timeout Control`: Start and stop timing management
--`Resource Control`: Verification of available descriptors and processes
+- `Supervision`: Continuous monitoring of child process state
+- `Smart Restart`: Configurable automatic restart policies
+- `Timeout Control`: Start and stop timing management
+- `Resource Control`: Verification of available descriptors and processes
 
 ### Communication System
--`UNIX Sockets`: High-speed local communication
--`INET Sockets`: Remote access with authentication
--`Custom Protocol`: Structured messages for client-daemon communication
--`Attach/Detac`: I/O multiplexing for direct process access
+- `UNIX Sockets`: High-speed local communication
+- `INET Sockets`: Remote access with authentication
+- `Custom Protocol`: Structured messages for client-daemon communication
+- `Attach/Detach`: I/O multiplexing for direct process access
 
 ### Configuration Parser
--`Supervisor Syntax`: Compatibility with existing configurations
--`Dynamic Variables`: Advanced expansion with modifiers
--`Validation`: Full syntax and semantic validation
--`Hot Reload`: Update without interrupting stable services
+- `Supervisor Syntax`: Compatibility with existing configurations
+- `Dynamic Variables`: Advanced expansion with modifiers
+- `Validation`: Full syntax and semantic validation
+- `Hot Reload`: Update without interrupting stable services
 
 ### Logging System
--`Automatic Rotation`: Based on size and number of files
--`Multiple Levels`: DEBUG, INFO, WARN, ERROR, CRITICAL
--`Syslog Integration`: Optional output to `syslog`
--`Per-Process Logs`: Separate `stdout`/`stderr` per process
+- `Automatic Rotation`: Based on size and number of files
+- `Multiple Levels`: DEBUG, INFO, WARN, ERROR, CRITICAL
+- `Syslog Integration`: Optional output to `syslog`
+- `Per-Process Logs`: Separate `stdout`/`stderr` per process
 
 ## 📄 License
 

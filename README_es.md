@@ -11,7 +11,7 @@
 </div>
 
 <div align="center">
-  <img src="/W_Taskmaster.png">
+  <img src="/images/W_Taskmaster.jpg">
 </div>
 
 # Taskmaster

@@ -11,6 +11,9 @@
 !doc/**
 doc/taskmaster\ 3.1.pdf
 
+!images
+!images/**
+
 !Taskmasterd
 !Taskmasterd/**
 build/
@@ -29,5 +32,3 @@ taskmasterctl
 !README_es.md
 !LICENSE
 !TODO.md
-!Taskmaster.png
-!W_Taskmaster.png
